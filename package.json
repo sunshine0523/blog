@@ -1,0 +1,17 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "Blog of KindBrave",
+  "main": "index.js",
+  "author": "KindBrave",
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^2.0.0-beta.66",
+    "vuepress-plugin-search-pro": "^2.0.0-beta.233",
+    "vuepress-theme-hope": "^2.0.0-beta.233"
+  },
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  }
+}
