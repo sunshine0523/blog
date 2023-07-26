@@ -1,5 +1,5 @@
 import {defineUserConfig} from "vuepress";
-import { hopeTheme } from "vuepress-theme-hope";
+import hopeTheme from "./theme"
 import { searchProPlugin } from "vuepress-plugin-search-pro";
 
 export default defineUserConfig({
@@ -7,9 +7,7 @@ export default defineUserConfig({
     lang: 'zh-CN',
     title: 'KindBrave',
     description: 'KindBrave 技术和生活缺一不可',
-    theme: hopeTheme({
-        headerDepth: 3,
-    }),
+    theme: hopeTheme,
     markdown: {
         headers: {
             level: [2, 3, 4]

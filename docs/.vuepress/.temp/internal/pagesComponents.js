@@ -5,6 +5,8 @@ export const pagesComponents = {
   "v-35b84e56": defineAsyncComponent(() => import(/* webpackChunkName: "v-35b84e56" */"D:/code/web/blog/docs/.vuepress/.temp/pages/LLM/from_bert_to_glm.html.vue")),
   // path: /LLM/LLaMA2_paper.html
   "v-d1b8fcd8": defineAsyncComponent(() => import(/* webpackChunkName: "v-d1b8fcd8" */"D:/code/web/blog/docs/.vuepress/.temp/pages/LLM/LLaMA2_paper.html.vue")),
+  // path: /LLM/retnet.html
+  "v-3b6a26bc": defineAsyncComponent(() => import(/* webpackChunkName: "v-3b6a26bc" */"D:/code/web/blog/docs/.vuepress/.temp/pages/LLM/retnet.html.vue")),
   // path: /404.html
   "v-3706649a": defineAsyncComponent(() => import(/* webpackChunkName: "v-3706649a" */"D:/code/web/blog/docs/.vuepress/.temp/pages/404.html.vue")),
   // path: /LLM/
