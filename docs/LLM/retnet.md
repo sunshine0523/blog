@@ -37,7 +37,7 @@ $$
 
 ### 2.1 Retention
 
-给定输入$X ∈ \Bbb{R}^{|x| × d_{model}}$，我们把它投影到一维函数$v(n) = X_n · w_V$上，现在，通过状态$s_n$来把$v(n)$映射到$o(n)$上，为了简化，我们规定$v_n = v(n), o_n = o(n)$那么有：
+给定输入$X ∈ \Bbb{R}^{|x| × d_{model}}$，我们把它投影到一维函数$v(n) = X_n · w_V$上，现在，通过状态$s_n$来把$v(n)$映射到$o(n)$上，为了简化，我们规定$v_n = v(n), o_n = o(n)$。那么有：
 
 $$
 s_n = As_{n-1} + K_n^Tv_n,
@@ -99,4 +99,72 @@ Layer的定义如下：
 
 与自注意力类似，并行表示使能够有效地用GPU训练模型。
 
-**Retention的循环表示**。
+伪代码如下：
+
+```python
+def ParallelRetention(
+    q, # bsz ∗ num_head ∗ len ∗ qk_dim
+    k, # bsz ∗ num_head ∗ len ∗ qk_dim
+    v, # bsz ∗ num_head ∗ len ∗ v_dim
+    decay_mask # num_head ∗ len ∗ len
+):
+    retention = q @ k.transpose(−1, −2)
+    retention = retention ∗ decay_mask
+    output = retention @ v
+    output = group_norm(output)
+    return output
+```
+
+**Retention的循环表示**。如图b，所提出的机制也可以写成RNN，这有利于推理。对于第n个时间步长，我们递归地得到的输出为：
+
+![1690419686384](image/retnet/1690419686384.png)
+
+<img width="300" src="./image/retnet/1690419700914.png"/>
+
+伪代码如下：
+
+```python
+def RecurrentRetention(
+    q, k, v, # bsz ∗ num_head ∗ len ∗ qkv_dim
+    past_kv, # bsz ∗ num_head ∗ qk_dim ∗ v_dim
+    decay # num_head ∗ 1 ∗ 1
+):
+    current_kv = decay ∗ past_kv + k.unsqueeze
+    (−1) ∗ v.unsqueeze(−2)
+    output = torch.sum(q.unsqueeze(−1) ∗
+    current_kv, dim=−2)
+    output = group_norm(output)
+    return output, current_kv
+```
+
+**Retention的块循环表示**。一种并行表示和循环表示的混合形式可用于加速训练，特别是对于长序列。我们将输入序列划分成块。在每个块中，我们遵循并行表示（公式(5))来进行计算。相反，交叉块信息按照循环表示方式传递（公式(6))。具体来说，设B表示块的长度。我们通过以下方法计算第i个块的Retention输出：
+
+![1690419983160](image/retnet/1690419983160.png)
+
+伪代码如下：
+
+```python
+def ChunkwiseRetention(
+    q, k, v, # bsz ∗ num_head ∗ chunk_size ∗ qkv_dim
+    past_kv, # bsz ∗ num_head ∗ qk_dim ∗ v_dim
+    decay_mask, # num_head ∗ chunk_size ∗ chunk_size
+    chunk_decay, # num_head ∗ 1 ∗ 1
+    inner_decay, # num_head ∗ chunk_size
+):
+    retention = q @ k.transpose(−1, −2)
+    retention = retention ∗ decay_mask
+    inner_retention = retention @ v
+    cross_retention = (q @ past_kv) ∗ inner_decay
+    retention = inner_retention + cross_retention
+    output = group_norm(retention)
+    current_kv = chunk_decay ∗ past_kv + k.transpose(−1, −2) @ v
+    return output, current_kv
+```
+
+### 2.2 Gated Multi-Scale Retention
+
+作者在每个layer中使用$h = d_{model} / d$，其中d表示头维度(head dimension)，不同的头使用不同的参数矩阵${W_Q, W_K, W_V ∈ \Bbb{R}^{d×d}}$，而且，多尺度保留(multi-scale retention, MSR)对不同的头指定了不同的$\gamma$。为了简单起见，我们在不同的层之间设置了相同的$\gamma$，并保持它们不变。此外，作者引入了倾斜门(swish gate)以增加retention layers的非线性。这样，给定$X$，我们定义layer为：
+
+![1690420849096](image/retnet/1690420849096.png)
+
+**Retention分数归一化**。作者用GroupNorm的尺度不变性来提高retention layers的数值精度。具体来说，在GroupNorm中乘一个标量不会影响输出和反向梯度，即$GroupNorm(\alpha * head_i) = GroupNorm(head_i)$。作者在等式(5)中实现了三个归一化因子。第一，正规化$QK^T$为$QK^T/\sqrt{d}$；第二，将$D$变为$\tilde{D}_{nm} = D_{nm}/\sqrt{\sum_{i=1}^nD_{ni}}$；第三，让$R$表示retention scores $R = QK^T \bigodot D$，正规化$R$为$\tilde{R}_{nm} = R_{nm}/max(|\sum_{i=1}^n R_{ni}|,1)$，这样，retention的输出变为$Retention(X) = \tilde{R}V$ 。由于尺度不变的性质，上述技巧在稳定正向和反向通道的数值流动的同时，并不影响最终的结果。

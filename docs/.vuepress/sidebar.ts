@@ -13,8 +13,15 @@ export const sidebarConfig = sidebar({
             icon: "solar:notebook-linear",
             text: "随笔记",
             collapsible: true,
-            prefix: "notebook",
-            children: "structure",
+            prefix: "notebook/",
+            children: [
+                {
+                    text: '阳阳笔记',
+                    collapsible: true,
+                    prefix: "yangyang/",
+                    children: "structure"
+                },
+            ],
         }
     ]
 })
