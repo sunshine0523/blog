@@ -168,3 +168,19 @@ def ChunkwiseRetention(
 ![1690420849096](image/retnet/1690420849096.png)
 
 **Retention分数归一化**。作者用GroupNorm的尺度不变性来提高retention layers的数值精度。具体来说，在GroupNorm中乘一个标量不会影响输出和反向梯度，即$GroupNorm(\alpha * head_i) = GroupNorm(head_i)$。作者在等式(5)中实现了三个归一化因子。第一，正规化$QK^T$为$QK^T/\sqrt{d}$；第二，将$D$变为$\tilde{D}_{nm} = D_{nm}/\sqrt{\sum_{i=1}^nD_{ni}}$；第三，让$R$表示retention scores $R = QK^T \bigodot D$，正规化$R$为$\tilde{R}_{nm} = R_{nm}/max(|\sum_{i=1}^n R_{ni}|,1)$，这样，retention的输出变为$Retention(X) = \tilde{R}V$ 。由于尺度不变的性质，上述技巧在稳定正向和反向通道的数值流动的同时，并不影响最终的结果。
+
+### 2.3 ❇️Retention网络的整体架构
+
+对于L层的Retention网络，作者堆叠多尺度缩放retention(multi-scale retention, MSR)和前馈网络(FFN)。输入序列$\{x_i\}^{|x|}_{i=1}$通过word embedding层转为向量，然后用这个向量$X^0 = [x_1, ... x_{|x|}] ∈ \Bbb{R}^{|x| × d_{model}}$（$d_{model}$是隐层维数）作为模型的输入，并且通过下列公式计算模型的输出：
+
+![1690594720867](image/retnet/1690594720867.png)
+
+*上述公式中，LN表示[LayerNorm](https://arxiv.org/abs/1607.06450)，$FFN(X) = gelu(XW_1)W_2$，$W_1, W_2$是参数矩阵。*
+
+**训练**。在训练过程中，作者使用了平行模式（公式5）和块循环模式（公式7）。这两个模式可以利用GPU加速计算。特别地，分块训练对长序列训练特别有用，这在FLOPs和内存消耗方面都是比较好的。
+
+**推理**。推理过程中，作者使用了循环模式（公式6），这可以较好地拟合自回归解码。并且这可以在获得相同结果的同时，以O(1)复杂度执行。
+
+![1690613493770](image/retnet/1690613493770.png)
+
+## 3 实验
