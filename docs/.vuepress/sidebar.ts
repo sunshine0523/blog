@@ -10,6 +10,13 @@ export const sidebarConfig = sidebar({
             children: "structure",
         },
         {
+            icon: "material-symbols:android",
+            text: "Android",
+            collapsible: true,
+            prefix: "Android",
+            children: "structure",
+        },
+        {
             icon: "solar:notebook-linear",
             text: "随笔记",
             collapsible: true,
