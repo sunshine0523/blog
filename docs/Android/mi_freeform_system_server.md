@@ -94,13 +94,38 @@ AOSP和部分国产ROM（如MIUI）采用的小窗方式是使用DecorCaptionVie
   > Class<?> mfClass = classLoader.loadClass("com.android.server.display.MiFreeformDisplayAdapter");
   > Object mf = mfClass.getConstructors()[0].newInstance(mSyncRoot, mContext, mHandler, mDisplayDeviceRepo, mUiHandler);
   > ```
-  > 自此，目前的问题均以解决。用户程序可以通过以下方式获取到mi_freeform服务：
   >
+- 用户程序可以通过以下方式获取到mi_freeform服务：
+
   > ```kotlin
   > val serviceManager = Class.forName("android.os.ServiceManager")
   > val binder = HiddenApiBypass.invoke(serviceManager, null, "getService", "mi_freeform") as IBinder
   > Log.e(TAG, "mf binder $binder")
   > val mfs = IMiFreeformService.Stub.asInterface(binder)
   > ```
-  > 此处使用了[AndroidHiddenApiBypass](https://github.com/LSPosed/AndroidHiddenApiBypass)，传统的getSystemService("mi_freeform")无法获取。
+  > 此处使用了[AndroidHiddenApiBypass](https://github.com/LSPosed/AndroidHiddenApiBypass)，传统的getSystemService("mi_freeform")无法获取，因为没有注册服务：
+  >
+  > ```java
+  > //frameworks/base/core/java/android/app/SystemServiceRegistry.java
+  >
+  >  // add for infrare scan
+  >  registerService(Context.INFRARE_SCAN_SERVICE, InfrareScanManager.class,
+  >        new CachedServiceFetcher<InfrareScanManager>() {
+  >             @Override
+  >             public InfrareScanManager createService(ContextImpl ctx) throws ServiceNotFoundException {
+  >                 IBinder b = ServiceManager.getService(Context.INFRARE_SCAN_SERVICE);
+  >                 IInfrareScanManager service = IInfrareScanManager.Stub.asInterface(b);
+  >                 Log.d("InfrareScanManager"," "+b+"   "+service);
+  >                 return new InfrareScanManager(ctx.getOuterContext(), service);
+  >             }});
+  >   // add end
+  > ```
+  >
+- HiddenApi冲突？
+
+  > 在调用android.jar中提供，但是部分内容被隐藏的类时(如SurfaceControl)，我们很难处理，这里米窗3使用了[HiddenApiRefinePlugin](https://github.com/RikkaApps/HiddenApiRefinePlugin)来处理，将系统类起一个别名。
+  >
+- 在创建完DisplayDevice后，无法立即获得LogicalDisplay从而拿到displayId？
+
+  > 调用DisplayDeviceRepository#addListener()添加监听，在添加成功后给Binder回调即可。
   >
