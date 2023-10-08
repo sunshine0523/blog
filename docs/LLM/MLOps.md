@@ -143,7 +143,7 @@ Machine Learning Operations (MLOps) overview definition and architecture这篇�
 
 # 5. 其他的MLOps Tools（三）
 
-[https://neptune.ai/blog/best-open-source-mlops-tools](https://neptune.ai/blog/best-open-source-mlops-tools)非常丰富地介绍了MLOps Tools，这里补充一些介绍：
+[https://neptune.ai/blog/best-open-source-mlops-tools](https://neptune.ai/blog/best-open-source-mlops-tools)和[https://neptune.ai/blog/mlops-tools-platforms-landscape]()非常丰富地介绍了MLOps Tools，这里补充一些介绍：
 
 ## 5.1 AutoKeras
 
