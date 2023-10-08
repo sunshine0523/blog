@@ -129,3 +129,15 @@ AOSP和部分国产ROM（如MIUI）采用的小窗方式是使用DecorCaptionVie
 
   > 调用DisplayDeviceRepository#addListener()添加监听，在添加成功后给Binder回调即可。
   >
+- 给远程服务设置Surface不生效？
+
+  > 编写AIDL文件时，需要给Surface设置为in，而非inout。如：
+  >
+  > ```java
+  > void createFreeform(String name, IMiFreeformDisplayCallback callback,
+  >                        int width, int height, int densityDpi,
+  >                        boolean secure, boolean ownContentOnly, boolean shouldShowSystemDecorations,
+  >                        in Surface surface, float refreshRate, long presentationDeadlineNanos) = 1;
+  >     void resizeFreeform(IBinder appToken, int width, int height, int densityDpi) = 2;
+  > ```
+  >
