@@ -1,4 +1,4 @@
-# # MLOps
+# MLOps
 
 # 1.什么是MLOps？
 
@@ -20,9 +20,9 @@ Machine Learning Operations (MLOps) overview definition and architecture这篇�
 - Airflow是一种任务和工作流程编排工具，也可以用于ML工作流程编排。它还可用于编排数据工程作业。任务可以根据有向无环图（DAGs）来执行。
 - 相关链接：[https://airflow.apache.org/](https://airflow.apache.org/)
 
-## 2.3 Kubeflow ⭐
+## 2.3 Kubeflow（全面工具集、偏训练） ⭐
 
-- 用途：部署
+- 用途：全面、偏训练
 - 类别：开源
 - Kubeflow是一个基于kubernetes的机器学习工具集，本身没有任何功能，靠的是其丰富的工具。
   Kubeflow主要是为了简化在kubernetes上面运行机器学习任务的流程， 最终希望能够实现一套完整可用的流水线，来实现机器学习从数据到模型的一整套端到端的过程。
@@ -36,7 +36,7 @@ Machine Learning Operations (MLOps) overview definition and architecture这篇�
 - ![1696741996614](image/MLOps/1696741996614.png)
 - ![1696743022318](image/MLOps/1696743022318.png)
 
-## 2.4 MLflow ⭐
+## 2.4 MLflow（监控、模型再部署、性能监控） ⭐
 
 - 类别：开源
 - 类型：监控、模型再部署、性能监控
@@ -66,14 +66,14 @@ Machine Learning Operations (MLOps) overview definition and architecture这篇�
 - Comet ML是一个跟踪、比较、解释和优化机器学习模型和实验的平台。您可以将其与任何机器学习库一起使用，例如Scikit-learn，Pytorch，TensorFlow和HuggingFace。
 - 相关链接：[https://www.comet.com/site/](https://www.comet.com/site/)
 
-## 3.2 Weights & Biases(wandb) ⭐
+## 3.2 Weights & Biases(wandb) （监控）⭐
 
 - 用途：监控
 - Weights & Biases是一个用于实验跟踪、数据和模型版本控制、超参数优化和模型管理的机器学习平台。此外，您可以使用它来记录工件（数据集、模型、依赖关系、管道和结果）并可视化数据集（音频、视觉、文本和表格）。
 - 相关链接：[https://wandb.ai/site](https://wandb.ai/site)
 - ![1696733631064](image/MLOps/1696733631064.png)
 
-## 3.3 Prefect ⭐
+## 3.3 Prefect（工作流管理） ⭐
 
 - 用途：工作流管理
 - Prefect是一个现代化的数据堆栈，用于监控、协调和编排应用程序之间的工作流。它是一个开源的轻量级工具，专为端到端机器学习pipeline而构建。您可以使用Prefect Orion UI或Prefect Cloud作为数据库。Prefect Orion UI是一个开源、本地托管的编排引擎和API服务器。它为您提供了对本地Prefect Orion实例和工作流的深入了解。Prefect Cloud是一个托管服务，可让您可视化流程、流程运行和部署。此外，您还可以管理帐户、工作区和团队协作。
@@ -91,13 +91,13 @@ Machine Learning Operations (MLOps) overview definition and architecture这篇�
 - Pachyderm通过Kubernetes上的数据版本化、沿袭和端到端管道自动化数据转换。您可以与任何数据（图像，日志，视频，CSV），任何语言（Python，R，SQL，C/C++）以及任何规模（PB数据，数千个作业）集成。就像Git一样，你可以使用类似的语法来版本化你的数据。在Pachyderm中，对象的最高级别是Repository，您可以使用Commit、Branches、File、History和Provenance来跟踪和版本化数据集。
 - 相关链接：[https://www.pachyderm.com/](https://www.pachyderm.com/)
 
-## 3.6 Data Version Control (DVC) ⭐
+## 3.6 Data Version Control (DVC) （版本控制）⭐
 
 - 用途：版本控制，可对数据、模型等进行版本控制
 - Data Version Control是一个开源的、流行的机器学习项目工具。它与Git无缝协作，为您提供代码、数据、模型、元数据和管道版本控制。DVC不仅仅是一个数据跟踪和版本控制工具。您可以使用它：实验跟踪（模型指标、参数、版本控制）。创建、可视化和运行机器学习管道。部署和协作的工作流。数据和模型注册表。使用CML持续集成和部署机器学习。
 - 相关链接：[https://dvc.org/](https://dvc.org/)
 
-## 3.7 BentoML ⭐
+## 3.7 BentoML（模型部署与管理） ⭐
 
 - 用途：模型部署与管理
 - BentoML使机器学习应用程序的发布变得更简单、更快。它是一个Python优先的工具，用于在生产中部署和维护API。它通过运行并行推理和自适应批处理来扩展强大的优化功能，并提供硬件加速。BentoML的交互式集中式仪表板可以在部署机器学习模型时轻松组织和监控。最好的部分是它可以与各种机器学习框架一起使用，例如Keras，ONNX，LightGBM，Pytorch和Scikit-learn。简而言之，BentoML为模型部署、服务和监控提供了完整的解决方案。
@@ -106,13 +106,13 @@ Machine Learning Operations (MLOps) overview definition and architecture这篇�
 - 相关链接：[https://zhuanlan.zhihu.com/p/495814838](https://zhuanlan.zhihu.com/p/495814838)
 - ![1696734802161](image/MLOps/1696734802161.png)
 
-## 3.8 Cortex ⭐
+## 3.8 Cortex（模型部署与管理） ⭐
 
 - 用途：模型部署与管理
 - Cortex允许您在生产环境中部署、管理和扩展机器学习模型。它是一个开源、灵活、多框架的模型服务和监控工具。Cortex扩展到Docker，Kubernetes，TensorFlow Serving，TorchServe和其他ML库。它通过提供可扩展的端点来管理负载。此外，您可以在单个API端点上部署多个模型，并且它支持用于保护API的自动扩展功能。它是一个MLOps工具，赠款您完全控制模型管理操作。
 - 相关链接：[https://www.cortex.dev/](https://www.cortex.dev/)
 
-## 3.9 Evidently ⭐
+## 3.9 Evidently（监控） ⭐
 
 - 用途：监控
 - 开源Python库，用于在开发、验证和生产过程中监控ML模型。它检查数据和模型质量、数据漂移、目标漂移以及回归和分类性能。Evidently有三个主要组成部分：测试（批量模型检查）：用于执行结构化数据和模型质量检查。报告（交互式仪表板）：交互式数据漂移、模型性能和目标虚拟化。实时监控（Real-time monitoring）：监控来自已部署ML服务的数据和模型指标。
@@ -129,7 +129,7 @@ Machine Learning Operations (MLOps) overview definition and architecture这篇�
 
 在[https://www.projectpro.io/article/best-mlops-tools-/574](https://www.projectpro.io/article/best-mlops-tools-/574)提到了大部分上述已有的工具，此外，还提到了一个工具：
 
-## 4.1 **Hydrosphere**
+## 4.1 **Hydrosphere（性能监控）**
 
 - 用途：性能监控（它的功能之一）
 - Hydrosphere是一个用于在生产环境中部署、版本控制和监控机器学习模型的平台。它与语言和框架无关，支持所有主要的编程语言和框架- Python，Java，Tensorflow，Pytorch等。其组件Hydrosphere Monitoring在监控机器学习模型部署方面发挥着最关键的作用，以下是其其他关键功能：
@@ -143,9 +143,9 @@ Machine Learning Operations (MLOps) overview definition and architecture这篇�
 
 # 5. 其他的MLOps Tools（三）
 
-[https://neptune.ai/blog/best-open-source-mlops-tools](https://neptune.ai/blog/best-open-source-mlops-tools)和[https://neptune.ai/blog/mlops-tools-platforms-landscape]()非常丰富地介绍了MLOps Tools，这里补充一些介绍：
+[https://neptune.ai/blog/best-open-source-mlops-tools](https://neptune.ai/blog/best-open-source-mlops-tools)和[https://neptune.ai/blog/mlops-tools-platforms-landscape](https://neptune.ai/blog/mlops-tools-platforms-landscape)非常丰富地介绍了MLOps Tools，这里补充一些介绍：
 
-## 5.1 AutoKeras
+## 5.1 AutoKeras（自动化机器学习）
 
 - 用途：自动化机器学习
 - AutoKeras是一个用于自动机器学习（AutoML）的开源库。使用AutoML框架，您可以自动处理原始数据，选择机器学习模型，并优化学习算法的超参数。
