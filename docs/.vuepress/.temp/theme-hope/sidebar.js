@@ -1,1 +1,1 @@
-export const sidebarData = {"/LLM":["from_bert_to_glm","LLaMA2_paper","retnet"],"/Android":["mi_freeform_system_server"],"/notebook/yangyang/":[]};
+export const sidebarData = {"/llm":["from_bert_to_glm","glm_tuning_on_mac","LLaMA2_paper","MLOps","retnet"],"/android":["mi_freeform_note","adb_restart","mi_freeform_system_server"],"/java":["fz_jc_dt"],"/leetcode/leetcode_150_shuzu/":["88","27","26","80","169"]};

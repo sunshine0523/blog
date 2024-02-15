@@ -1,11 +1,11 @@
 import { defineClientConfig } from "@vuepress/client";
-import { VPLink } from "D:/code/web/blog/node_modules/vuepress-shared/lib/client/index.js";
+import { VPLink } from "/media/kindbrave/Data/code/web/blog/node_modules/vuepress-shared/lib/client/index.js";
 
-import { HopeIcon, Layout, NotFound, useScrollPromise, injectDarkmode, setupDarkmode, setupSidebarItems } from "D:/code/web/blog/node_modules/vuepress-theme-hope/lib/bundle/export.js";
+import { HopeIcon, Layout, NotFound, useScrollPromise, injectDarkmode, setupDarkmode, setupSidebarItems } from "/media/kindbrave/Data/code/web/blog/node_modules/vuepress-theme-hope/lib/bundle/export.js";
 
-import { defineAutoCatalogIconComponent } from "D:/code/web/blog/node_modules/vuepress-plugin-auto-catalog/lib/client/index.js"
+import { defineAutoCatalogIconComponent } from "/media/kindbrave/Data/code/web/blog/node_modules/vuepress-plugin-auto-catalog/lib/client/index.js"
 
-import "D:/code/web/blog/node_modules/vuepress-theme-hope/lib/bundle/styles/all.scss";
+import "/media/kindbrave/Data/code/web/blog/node_modules/vuepress-theme-hope/lib/bundle/styles/all.scss";
 
 defineAutoCatalogIconComponent(HopeIcon);
 
