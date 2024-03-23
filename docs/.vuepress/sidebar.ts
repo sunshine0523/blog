@@ -24,6 +24,27 @@ export const sidebarConfig = sidebar({
             children: "structure",
         },
         {
+            icon: "mdi:network",
+            text: "计算机网络",
+            collapsible: true,
+            prefix: "network",
+            children: "structure",
+        },
+        {
+            icon: "mdi:offer",
+            text: "面试",
+            collapsible: true,
+            prefix: "offer",
+            children: "structure",
+        },
+        {
+            icon: "simple-icons:redis",
+            text: "Redis",
+            collapsible: true,
+            prefix: "redis",
+            children: "structure",
+        },
+        {
             icon: "simple-icons:leetcode",
             text: "Leetcode",
             collapsible: true,
