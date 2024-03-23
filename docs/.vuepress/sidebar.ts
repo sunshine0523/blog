@@ -17,7 +17,7 @@ export const sidebarConfig = sidebar({
             children: "structure",
         },
         {
-            icon: "simple-icons:java",
+            icon: "ri:java-fill",
             text: "Java",
             collapsible: true,
             prefix: "java",

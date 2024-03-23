@@ -8,7 +8,9 @@ export const pagesRoutes = [
   ["v-586d9498","/llm/LLaMA2_paper.html",{"y":"a","t":"LLaMA 2 论文笔记"},[":md"]],
   ["v-369323c1","/llm/MLOps.html",{"y":"a","t":"MLOps"},[":md"]],
   ["v-29d238c2","/llm/retnet.html",{"y":"a","t":"RetNet 论文笔记"},[":md"]],
+  ["v-75b57b10","/network/tcp_udp.html",{"y":"a","t":"1、TCP和UDP"},[":md"]],
   ["v-16ee11dc","/network/tmp.html",{"y":"a","t":"一些临时随写内容"},[":md"]],
+  ["v-5e716a47","/offer/jvm_garbage_collection.html",{"y":"a","t":"6、JVM垃圾回收"},[":md"]],
   ["v-68e2fece","/offer/jvm_memory.html",{"y":"a","t":"3、JVM内存结构和Java内存模型"},[":md"]],
   ["v-61b9ecbc","/offer/meituan-1.html",{"y":"a","t":"1、类的加载流程"},[":md"]],
   ["v-3678b490","/offer/mysql_index.html",{"y":"a","t":"4、MySQL索引"},[":md"]],
@@ -31,5 +33,4 @@ export const pagesRoutes = [
   ["v-dc384366","/redis/",{"y":"p","t":"Redis"},[]],
   ["v-764ee4e0","/leetcode/leetcode_150_shuzu/",{"y":"p","t":"Leetcode 150 Shuzu"},[]],
   ["v-31987621","/leetcode/",{"y":"p","t":"Leetcode"},[]],
-  ["v-5e716a47","/offer/jvm_garbage_collection.html",{"y":"a","t":"6、JVM垃圾回收"},[":md"]],
 ]
