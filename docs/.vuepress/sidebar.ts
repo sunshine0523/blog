@@ -38,6 +38,13 @@ export const sidebarConfig = sidebar({
             children: "structure",
         },
         {
+            icon: "simple-icons:mysql",
+            text: "MySQL",
+            collapsible: true,
+            prefix: "mysql",
+            children: "structure",
+        },
+        {
             icon: "simple-icons:redis",
             text: "Redis",
             collapsible: true,

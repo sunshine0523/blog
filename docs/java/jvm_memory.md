@@ -1,5 +1,5 @@
 ---
-title: 3、JVM内存结构和Java内存模型
+title: 2、JVM内存结构和Java内存模型
 ---
 参考[参考1](https://zhuanlan.zhihu.com/p/38348646) [参考2](https://cloud.tencent.com/developer/article/2398564)
 

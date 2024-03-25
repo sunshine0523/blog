@@ -1,5 +1,5 @@
 ---
-title: 4、MySQL索引
+title: 1、MySQL索引
 ---
 ## 1.索引的介绍
 

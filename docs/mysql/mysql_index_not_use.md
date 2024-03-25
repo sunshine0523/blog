@@ -1,5 +1,5 @@
 ---
-title: 5、MySQL索引失效
+title: 2、MySQL索引失效
 ---
 总结于[https://juejin.cn/post/7161964571853815822](https://juejin.cn/post/7161964571853815822)
 

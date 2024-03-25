@@ -1,6 +1,6 @@
 ---
 lang: zh-CN
-title: 封装、继承、多态
+title: 4、封装、继承、多态
 ---
 # 封装、继承、多态
 
@@ -63,7 +63,6 @@ title: 封装、继承、多态
 
 在接口的多态中，指向接口的引用必须是指定这实现了该接口的一个类的实例程序，在运行时，根据对象引用的实际类型来执行对应的方法。
 
-
 ### 实例分析
 
 ```java
@@ -103,7 +102,7 @@ public class Test {
         B b = new B();  
         C c = new C();  
         D d = new D();  
-      
+    
         System.out.println("1--" + a1.show(b));  
         System.out.println("2--" + a1.show(c));  
         System.out.println("3--" + a1.show(d));  
@@ -112,11 +111,10 @@ public class Test {
         System.out.println("6--" + a2.show(d));  
         System.out.println("7--" + b.show(b));  
         System.out.println("8--" + b.show(c));  
-        System.out.println("9--" + b.show(d));    
+        System.out.println("9--" + b.show(d));  
     }  
 }  
 ```
-
 
 **当超类对象引用变量引用子类对象时，被引用对象的类型而不是引用变量的类型决定了调用谁的成员方法，但是这个被调用的方法必须是在超类中定义过的，也就是说被子类覆盖的方法。（但是如果强制把超类转换成子类的话，就可以调用子类中新添加而超类没有的方法了。）**
 
