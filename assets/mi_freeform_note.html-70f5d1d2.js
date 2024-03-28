@@ -1,0 +1,1 @@
+import{_ as o}from"./plugin-vue_export-helper-c27b6911.js";import{o as t,c as n,b as e}from"./app-99b09319.js";const _={},r=e("ul",null,[e("li",null,"androidx.compose.foundation 看一下")],-1),c=[r];function s(l,a){return t(),n("div",null,c)}const m=o(_,[["render",s],["__file","mi_freeform_note.html.vue"]]);export{m as default};
