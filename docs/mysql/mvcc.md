@@ -39,7 +39,7 @@ MVCC在写的时候，会创建一个快照，并且把数据的修改放到快�
 
 即使一个数据加了X锁，一致性非锁定读都可以进行读取，因为使用的是快照读
 
-在RC和RR隔离级别，普通的select都是用一致性非锁定读，**在RR隔离级别，还可以实现可重复度和防止部分幻读**
+在RC和RR隔离级别，普通的select都是用一致性非锁定读，**在RR隔离级别，还可以实现可重复读和防止部分幻读**
 
 - 这个部分幻读是哪一部分？在两次查询之间，如果有一个事务进行插入，RR隔离级别的MVCC就不会产生幻读，因为RR隔离模式下，MVCC只会在第一次查询创建ReadView，所以不会幻读
 - RC隔离级别不可以防止幻读，就是因为RC隔离级别下ReadView在每次select时都会生成一次
@@ -58,14 +58,16 @@ select ... for update		insert 	update 	delete会对数据加X锁
 
 - 加X锁的数据，任何锁都不能加
 
-在2.1节中我们说，RR隔离级别的MVCC可以防止部分幻读，但是锁定读因为是当前读，所以可能会有幻读问题，解决办法是对读的数据加一个Next key lock，防止两次查询之间插入。
+在2.1节中我们说，RR隔离级别的MVCC可以防止部分幻读，但是锁定读因为是当前读，所以可能会有幻读问题，~~解决办法是对读的数据加一个Next key lock，防止两次查询之间插入。~解决办法就是对这张表加next key lock。
+
+可以看一下 [这个](./transaction_isolation_level.html)。
 
 ### 2.3 总结：InnoDB如何解决幻读问题？
 
 InnoDB在RR隔离模式下，使用MVCC + Next key lock来解决幻读问题
 
 - 使用select读时，会使用MVCC来进行一致性非锁定读，此时不会产生幻读
-- 使用select in lock model、select for update、insert、update、delete时，会使用锁定读，给数据加S锁或者X锁，对于select数据，会使用next key lock来防止两次读之间插入数据
+- 使用select lock in share model、select for update、insert、update、delete时，会使用锁定读，此时可能会产生幻读，所以使用next key lock来解决幻读问题。
 
 综上来防止幻读问题
 
