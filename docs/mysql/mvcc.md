@@ -55,10 +55,9 @@ select ... lock in share mode	会对数据加S锁
 select ... for update		insert 	update 	delete会对数据加X锁
 
 - 对于加S锁的数据，其他事务也可以加S锁，但是不能加X锁
-
 - 加X锁的数据，任何锁都不能加
 
-在2.1节中我们说，RR隔离级别的MVCC可以防止部分幻读，但是锁定读因为是当前读，所以可能会有幻读问题，~~解决办法是对读的数据加一个Next key lock，防止两次查询之间插入。~解决办法就是对这张表加next key lock。
+在2.1节中我们说，RR隔离级别的MVCC可以防止部分幻读，但是锁定读因为是当前读，所以可能会有幻读问题，~解决办法是对读的数据加一个Next key lock，防止两次查询之间插入。~ 解决办法就是对这张表加next key lock。
 
 可以看一下 [这个](./transaction_isolation_level.html)。
 

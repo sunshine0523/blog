@@ -17,6 +17,43 @@ synchronized是Java中的一个关键字
 - 在最开始时，synchronized是偏向锁，即它更加偏向于第一个获取到这个锁的线程。如果说下一次执行到同步语句，发现还是这个线程，那么synchronized就不需要重新加锁了，这样只有一个线程的话，就不需要频繁加锁，性能开销基本没有。
 - 如果某时刻又来了一个线程，那么此时的偏向锁就会升级为轻量锁。轻量级锁是一个自旋锁，如果现在有两个线程A和B，那么A在执行的时候，B此时会自旋等待，即不会暂停执行。这个自旋等待次数是有上限的，一旦到达了某个上限，就会升级为重量级锁，此时没有争夺到锁的线程就会暂停执行，让出CPU，直到通知它再次执行。
 
+### 0.2 ReentrantLock
+
+ReentrantLock是可重入锁，默认是非公平锁。
+
+这里主要说一下它是如何可重入的。
+
+ReentrantLock里面有个内部类Sync和它的两个子类FairSync和NonFairSync，对应着公平锁和非公平锁的实现。
+
+如何实现可重入的，我们看Sync#tryLock()：
+
+```java
+final boolean tryLock() {
+    Thread current = Thread.currentThread();
+    int c = getState();
+    //如果state值为0，表示这个锁没有被任何线程占用，通过CAS将state改为1
+    //（因为可能有多个线程同时争夺）
+    if (c == 0) {
+        if (compareAndSetState(0, 1)) {
+	    //如果争夺成功，那么把这个锁的拥有者设置为当前线程
+	    //这样可以保证下次重入
+            setExclusiveOwnerThread(current);
+            return true;
+        }
+    }
+    //如果发现state不为1，且拥有者是本线程，表示重入 
+    else if (getExclusiveOwnerThread() == current) {
+        if (++c < 0) // overflow
+	    throw new Error("Maximum lock count exceeded");
+        setState(c);
+        return true;
+    }
+    return false;
+}
+```
+
+可以看到重入的关键就是AQS中维护了state变量和所有者线程值。每重入一层，state就会加1
+
 ![1711526206795](image/lock/1711526206795.png)
 
 ## 1.乐观锁和悲观锁
@@ -66,6 +103,10 @@ ReentrantLock默认的实现就是非公平锁。**它其中有一个Sync类，�
 
 可重入锁可以防止死锁。
 
-synchronized和ReentrintLock都是可重入锁。
+synchronized和ReentrantLock都是可重入锁。
 
-如何实现的？
+## 5.共享锁和排他锁
+
+共享锁就是多个线程可同时持有一把锁，排他锁就是同时只可有一个线程获得一把锁。
+
+**某个同步资源加了共享锁，那么其他线程也只能加共享锁，不能加排他锁，而且共享锁只能读数据，不能写数据。**

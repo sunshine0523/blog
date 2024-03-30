@@ -31,10 +31,10 @@ export const sidebarConfig = sidebar({
             children: "structure",
         },
         {
-            icon: "mdi:offer",
-            text: "面试",
+            icon: "mdi:os",
+            text: "操作系统",
             collapsible: true,
-            prefix: "offer",
+            prefix: "os",
             children: "structure",
         },
         {
