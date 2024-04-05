@@ -46,11 +46,14 @@ ThreadPoolExecutor的构造参数有哪些？
 ### 2.3 阻塞队列
 
 - 阻塞队列有哪些？
-
   - 有限队列。ArrayBlockingQueue。该队列有界限，底层数据结构是ArrayList。
-  - 无限队列。LinkedBlockingQueue。该队列长度为Inteter.MAX_VALUE，可以算作无界，底层用的是LinkedList。该队列用在了SingleThreadExecutor和FixedThreadPool中。其中SingleThreadExecutor的核心线程和最大线程都是1，FixedThreadPool的核心线程和最大线程是一致的。它们的任务队列可以看作无界的。
+  - 无限队列。LinkedBlockingQueue。该队列默认长度为Inteter.MAX_VALUE（可手动指定有界），可以算作无界，底层用的是LinkedList。该队列用在了SingleThreadExecutor和FixedThreadPool中。其中SingleThreadExecutor的核心线程和最大线程都是1，FixedThreadPool的核心线程和最大线程是一致的。它们的任务队列可以看作无界的。
   - 同步队列。同步队列的空间为0，不能存放任何任务。它用在CachedThreadPool中，CachedThreadPool的最大线程数为无限。
   - 延迟队列。延迟队列底层使用堆来实现的。延迟队列排序方式不是任务的添加顺序，而是任务的**延迟时间**。**每次出队的任务都是当前延迟最小的任务**。
+- LinkedBlockingQueue和ArrayBlockingQueue的区别？
+  - L默认是无界队列，默认长度是Integer.MAX_VALUE，而A在初始化的时候必须指定容量，是有界队列
+  - 锁机制不同，A没有进行锁分离，即入队和出队用的是一把ReentrantLock，而L是锁分离的，入队和出队用的是两把锁。也因此，L的并发性能会更好一些
+  - 底层实现不同，A底层是数组，L底层是链表
 
 ## 3. 线程池处理任务细节
 

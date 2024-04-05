@@ -24,6 +24,13 @@ export const sidebarConfig = sidebar({
             children: "structure",
         },
         {
+            icon: "mdi:spring",
+            text: "Spring",
+            collapsible: true,
+            prefix: "spring",
+            children: "structure",
+        },
+        {
             icon: "mdi:network",
             text: "计算机网络",
             collapsible: true,
@@ -51,20 +58,20 @@ export const sidebarConfig = sidebar({
             prefix: "redis",
             children: "structure",
         },
-        {
-            icon: "simple-icons:leetcode",
-            text: "Leetcode",
-            collapsible: true,
-            prefix: "leetcode/",
-            children: [
-                {
-                    icon: "simple-icons:leetcode",
-                    text: 'Leetcode 面试经典150题计划-数组',
-                    collapsible: true,
-                    prefix: "leetcode_150_shuzu/",
-                    children: "structure"
-                },
-            ],
-        }
+        // {
+        //     icon: "simple-icons:leetcode",
+        //     text: "Leetcode",
+        //     collapsible: true,
+        //     prefix: "leetcode/",
+        //     children: [
+        //         {
+        //             icon: "simple-icons:leetcode",
+        //             text: 'Leetcode 面试经典150题计划-数组',
+        //             collapsible: true,
+        //             prefix: "leetcode_150_shuzu/",
+        //             children: "structure"
+        //         },
+        //     ],
+        // }
     ]
 })
