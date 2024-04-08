@@ -5,7 +5,7 @@ title: 3、MVCC
 
 MVCC就是多版本并发控制，一般用于数据库中，比如MySQL。现在的数据库往往需要进行大量的并发操作，传统往往是通过加锁的方式实现的，但是这样可能会造成死锁或者阻塞的情况。而MVCC可以做到不上锁进行读取数据，保证多事务并发操作的的一致性和隔离性。
 
-MVCC使用快照的方式进行读写操作。
+MVCC使用**快照**的方式进行读写操作。
 
 ### 1.1 读
 
@@ -37,6 +37,8 @@ MVCC在写的时候，会创建一个快照，并且把数据的修改放到快�
 >
 > RC隔离级别：Read Commited，读已提交
 
+有关更详细的数据库隔离级别，请见[这篇文章](transaction_isolation_level.html)。
+
 即使一个数据加了X锁，一致性非锁定读都可以进行读取，因为使用的是快照读
 
 在RC和RR隔离级别，普通的select都是用一致性非锁定读，**在RR隔离级别，还可以实现可重复读和防止部分幻读**
@@ -50,9 +52,9 @@ MVCC在写的时候，会创建一个快照，并且把数据的修改放到快�
 
 比如：
 
-select ... lock in share mode	会对数据加S锁
+`select ... lock in share mode`会对数据加S锁
 
-select ... for update		insert 	update 	delete会对数据加X锁
+`select ... for update` `insert` `update` `delete`会对数据加X锁
 
 - 对于加S锁的数据，其他事务也可以加S锁，但是不能加X锁
 - 加X锁的数据，任何锁都不能加
@@ -65,8 +67,8 @@ select ... for update		insert 	update 	delete会对数据加X锁
 
 InnoDB在RR隔离模式下，使用MVCC + Next key lock来解决幻读问题
 
-- 使用select读时，会使用MVCC来进行一致性非锁定读，此时不会产生幻读
-- 使用select lock in share model、select for update、insert、update、delete时，会使用锁定读，此时可能会产生幻读，所以使用next key lock来解决幻读问题。
+- 使用 `select`读时，会使用MVCC来进行一致性非锁定读，此时不会产生幻读
+- 使用 `select lock in share model`、`select for update`、`insert`、`update`、`delete`时，会使用锁定读，此时可能会产生幻读，所以使用next key lock来解决幻读问题。
 
 综上来防止幻读问题
 
