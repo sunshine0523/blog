@@ -1,8 +1,6 @@
 ---
 title: 10、线程池
 ---
-总结于[文章1](https://javaguide.cn/java/concurrent/java-thread-pool-summary.htm) [文章2](https://zhuanlan.zhihu.com/p/350067478)
-
 ## 1.什么是线程池/优点
 
 线程池就是利用池化技术来管理线程。使用线程池的优点：
@@ -19,6 +17,15 @@ title: 10、线程池
 ⭐Executors
 
 不推荐使用这个工厂类。因为它内部的很多线程池可能会导致OOM（比如FixedThreadPool、SingleThreadExecutor，使用无限队列，可能导致队列OOM。CachedThreadPool，使用无限线程，可能导致OOM），而且不方便进行灵活控制。
+
+Executors中的线程池介绍：
+
+- FixedThreadPool。它的核心线程数量和最大线程数量相同，阻塞队列使用LinkedBlockingQueue，**即阻塞队列无限大**，可能导致OOM
+- SingleThreadExecutor。核心线程数和最大线程数都是1，阻塞队列同上，可能导致OOM
+- CachedThreadPool。核心线程数为0，**最大线程数为无限大**，阻塞队列为SynchronousQueue同步队列，即阻塞队列不可存放作业，可能导致OOM
+- ScheduledThreadPool。核心线程数自定，**最大线程数为无限大**，阻塞队列为DelayedWorkQueue延时队列（这个延时是指任务延时），可能导致OOM。
+
+因为它们都会导致OOM，所以不推荐。
 
 ⭐ThreadPoolExecutor
 
