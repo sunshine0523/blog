@@ -10,6 +10,13 @@ export const sidebarConfig = sidebar({
             children: "structure",
         },
         {
+            icon: "mdi:robot",
+            text: "Agent",
+            collapsible: true,
+            prefix: "agent",
+            children: "structure",
+        },
+        {
             icon: "material-symbols:android",
             text: "Android",
             collapsible: true,
@@ -58,6 +65,13 @@ export const sidebarConfig = sidebar({
             prefix: "redis",
             children: "structure",
         },
+        {
+            icon: "uil-linux",
+            text: "Linux",
+            collapsible: true,
+            prefix: "linux",
+            children: "structure"
+        }
         // {
         //     icon: "simple-icons:leetcode",
         //     text: "Leetcode",
