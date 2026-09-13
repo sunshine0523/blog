@@ -113,11 +113,38 @@ MCE (Meta Context Engineering) 正是为了突破 ACE 的这个瓶颈而提出�
 
 整个系统分为两层：
 
-**Base Level（基础层）**：这一层有一个 Context Function，它的作用是动态组装上下文。根据用户的输入 prompt，系统从知识库中检索相关的规则、案例、知识片段，动态拼接成 system prompt，最终提供给模型的是 user prompt + system prompt。
-
-如果你熟悉 Claude Code 或 OpenClaw 的实现原理，你会发现这其实就是那些动态上下文组装机制——Context Engineering 做的事情。
+**Base Level（基础层）**：Base Level 提供给任务 Agent 了一个东西叫：Context Function，放心，这是老熟人换了个名字。如果你已经比较了解 Claude Code、OpenClaw 的上下文原理，我之前的文章也写过，其实就是那些动态的上下文组装机制——Context Engineering 做的事情，根据用户输入 user prompt，系统通过若干处理步骤，从已有资料中（各种规则、失败案例、业务知识等）动态拼接一些 system prompt，最终真正提供给模型的上下文是 user prompt + system prompt。
 
 **Meta Level（元层）**：这一层有一个 Context Engineering Skill（简称 CE Skill），它的作用是**制定改进方案**。它不直接修改 Context，而是观察 Base Level 在训练集上的表现，分析哪些地方需要改进，然后告诉 Base Level 的 Agent："你应该这样调整 Context Function"。
+
+#### MCE 的工作示例
+
+CE Skill 本身也就是改进者，比如这个 [SKILL.md] 可能长这样（注意下面只是极简示例）：
+
+1. 批量分析全部失败案例，不要逐条追加规则。
+2. 先判断错误来自知识缺失、检查失败还是推理流程错误。
+3. 将具体案例存入 examples/；
+4. 将通用原则存入 rules/；
+5. 只有在至少三个样本中重复出现的模式才能进入正式 Context。
+6. 修改后必须在验证集运行回归测试。
+7. 如果验证分数下降，恢复上一版 Context。
+
+我们不引入任何公式，直接找个具体的例子，比如：现在有个任务是让 Agent 对相册里的照片进行分类。这里我们选择了一个分类问题而不是开放问题作为例子，是为了降低一些复杂度。比如照片的类型有：人物、宠物、美食、风景、截图、票据、证件、其他。
+
+先做一些准备工作——构建一个人工标注过的数据集，train/test 的划分和传统的机器学习、深度学习任务一样。
+
+```
+photos/
+├── train/      500张，用于发现错误和学习上下文
+└── test/       200张，用于最终优化效果评估
+```
+
+任务 Agent 也就是那个分类 Agent，它最开始得到的是：
+
+- **user prompt**：照片
+- **system prompt**：你是一个极具辨别能力的照片分类师，请将照片分类为：人物、宠物、美食、风景、截图、票据、证件、其他。
+
+然后我们需要有一个评价器，评价的方式就用最简单的准确率。
 
 这里的关键区别在于：
 - ACE 中，一个固定的机制在改进 Context
