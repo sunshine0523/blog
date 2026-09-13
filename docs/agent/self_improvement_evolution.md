@@ -29,7 +29,7 @@ tag:
 
 ## 1. Context 层的自我改进：从规则累积到结构化管理
 
-### ACE：给 Agent 一本可编辑的工作手册
+### 1.1 ACE：给 Agent 一本可编辑的工作手册
 
 想象你正在指导一个新员工，最开始你会给他一份工作手册。当他犯了错误，传统做法是在手册末尾追加一条新规则。几个月后，这份手册变得臃肿不堪，新规则和旧规则互相矛盾，没人能说清楚哪条规则更重要。
 
@@ -108,7 +108,7 @@ ACE 通过模块分工解决这个问题：
 
 这些"元层面"的问题都是人类预设的，ACE 无法触及。因此，**ACE 是 Context 层的弱自我改进**，还不是对自我改进机制本身的递归优化。
 
-### MCE：让 Agent 学会改进"如何改进"
+### 1.2 MCE：让 Agent 学会改进"如何改进"
 
 MCE (Meta Context Engineering) 正是为了突破 ACE 的这个瓶颈而提出的。它的核心思想是：不仅要改进 Context，还要改进"改进 Context 的方法"。
 
@@ -196,7 +196,7 @@ Context Function 的调整并不局限于新增/修改规则，Meta Agent 会分
 
 从 Context 层往上，我们来到了 Harness Code 层。这一层不仅要改上下文的内容，还要改生成和管理这些上下文的代码本身。
 
-### Meta-Harness：让 Coding Agent 重写 Harness
+### 2.1 Meta-Harness：让 Coding Agent 重写 Harness
 
 Meta-Harness 的核心思路是：既然模型已经能写代码了，为什么不让它直接修改 Harness 的代码？
 
@@ -240,7 +240,7 @@ Meta-Harness 维护一个候选 Harness 池，每个候选都有自己的性能�
 
 Meta-Harness 实现了一个重要的跨越：**从修改数据到修改代码**。但它仍然依赖人类设计的外层循环——Proposer 怎么搜索、怎么评价、怎么选择，这些机制还是固定的。
 
-### Self-Harness：闭环式的自我诊断与修复
+### 2.2 Self-Harness：闭环式的自我诊断与修复
 
 Self-Harness 更进一步，它设计了一个完整的三阶段工作流程，让 Agent 能够系统性地发现问题、提出方案、验证效果。
 
@@ -365,7 +365,7 @@ Self-Harness 实现了一个完整的闭环：同一个固定模型，可以根�
 
 ## 3. Optimizer Code 层的自我改进：改进"改进者"本身
 
-### STOP：Self-Taught Optimizer
+### 3.1 STOP：Self-Taught Optimizer
 
 在 Meta-Harness 和 Self-Harness 的基础上，我们终于来到了最核心的问题：**如何改进改进者本身**？
 
@@ -436,7 +436,7 @@ STOP 证明了一个重要的原理：**模型外部的认知支架（Harness）
 
 它相当于在一个简易版的脚手架上实现了强递归自我改进。尽管如此，这已经是一个非常重要的原型，为后续研究指明了方向。
 
-### DGM-H：达尔文式的进化探索
+### 3.2 DGM-H：达尔文式的进化探索
 
 如果说 STOP 是在简化环境中验证了强递归自我改进的可能性，那么 DGM-H (Darwin Gödel Machine with Hyperagent) 就是在尝试构建一个更完整、更开放的自我改进系统。
 
