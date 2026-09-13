@@ -1,0 +1,1 @@
+const e=JSON.parse('{"key":"v-764ee4e0","path":"/leetcode/leetcode_150_shuzu/","title":"Leetcode 150 Shuzu","lang":"zh-CN","frontmatter":{"title":"Leetcode 150 Shuzu","article":false,"feed":false,"sitemap":false},"headers":[],"git":{},"readingTime":{"minutes":0,"words":1},"filePathRelative":null,"excerpt":""}');export{e as data};
