@@ -26,7 +26,7 @@ tag:
 
 本文将深入探讨 Harness 层面的自我改进技术演进——从最基础的 Context 优化，到 Harness Code 的动态修改，再到 Optimizer 本身的递归式改进。这是一条从表层调整走向深层重构的技术路线,每一步都在挑战"谁来改进改进者"这个根本性问题。
 
-## Context 层的自我改进：从规则累积到结构化管理
+## 1. Context 层的自我改进：从规则累积到结构化管理
 
 ### ACE：给 Agent 一本可编辑的工作手册
 
@@ -191,7 +191,7 @@ Context Function 的调整并不局限于新增/修改规则，Meta Agent 会分
 
 但 MCE 仍然有一个边界：它改进的是 Context Engineering 的策略，但并没有改动生成和管理 Context 的代码本身。要突破这个边界，我们需要进入下一个层次。
 
-## Harness Code 层的自我改进：从修改配置到重写代码
+## 2. Harness Code 层的自我改进：从修改配置到重写代码
 
 从 Context 层往上，我们来到了 Harness Code 层。这一层不仅要改上下文的内容，还要改生成和管理这些上下文的代码本身。
 
@@ -362,7 +362,7 @@ Self-Harness 实现了一个完整的闭环：同一个固定模型，可以根�
 
 距离强递归自我改进，还有最后一步要走。
 
-## Optimizer Code 层的自我改进：改进"改进者"本身
+## 3. Optimizer Code 层的自我改进：改进"改进者"本身
 
 ### STOP：Self-Taught Optimizer
 
