@@ -18,7 +18,8 @@ tag:
 
 # 从 Context 到 Optimizer：Agent 自我改进的进化之路
 
-> 来源启发：https://lilianweng.github.io/posts/2026-07-04-harness/
+> 来源启发：https://lilianweng.github.io/posts/2026-07-04-harness/  
+> 抖音原文：https://v.douyin.com/EHjFcWQ9ZiI
 
 ## 引言
 
