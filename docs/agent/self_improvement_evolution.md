@@ -113,7 +113,7 @@ MCE (Meta Context Engineering) 正是为了突破 ACE 的这个瓶颈而提出�
 
 整个系统分为两层：
 
-**Base Level（基础层）**：Base Level 提供给任务 Agent 了一个东西叫：Context Function，放心，这是老熟人换了个名字。如果你已经比较了解 Claude Code、OpenClaw 的上下文原理，我之前的文章也写过，其实就是那些动态的上下文组装机制——Context Engineering 做的事情，根据用户输入 user prompt，系统通过若干处理步骤，从已有资料中（各种规则、失败案例、业务知识等）动态拼接一些 system prompt，最终真正提供给模型的上下文是 user prompt + system prompt。
+**Base Level（基础层）**：Base Level 提供给任务 Agent 了一个东西叫：Context Function。这其实就是那些动态的上下文组装机制——Context Engineering 做的事情，根据用户输入 user prompt，系统通过若干处理步骤，从已有资料中（各种规则、失败案例、业务知识等）动态拼接一些 system prompt，最终真正提供给模型的上下文是 user prompt + system prompt。如果你了解过 Claude Code、OpenClaw 这类系统的上下文原理，会发现它们用的就是类似的机制。
 
 **Meta Level（元层）**：这一层有一个 Context Engineering Skill（简称 CE Skill），它的作用是**制定改进方案**。它不直接修改 Context，而是观察 Base Level 在训练集上的表现，分析哪些地方需要改进，然后告诉 Base Level 的 Agent："你应该这样调整 Context Function"。
 
